@@ -74,6 +74,29 @@
     <ul id="results"></ul>
 
     
+        <h2 class="section-title">Posts</h2>
+        
+        <ul class="post-list">
+  
+
+  <li>
+
+    <div style="display: grid; grid-template-columns: 7em auto">
+      <span class="date">Nov 25, 2024</span>
+      
+      <a href="/posts/microsoft-intune-on-ubuntu/">Microsoft Intune on Ubuntu 24.04 LTS</a>
+      
+    </div>
+
+</li>
+
+
+
+  
+</ul>
+
+
+    
 
 
 <br>
@@ -210,18 +233,32 @@
 <script>
 window.store = {
     
-    "http:\/\/localhost:1313\/categories\/": {
-        "title": "Categories",
-        "tags": [],
-        "content": "", 
-        "url": "http:\/\/localhost:1313\/categories\/"
-    },
-    
     "http:\/\/localhost:1313\/": {
         "title": "Michele Nalli\u0027s Blog",
         "tags": [],
         "content": "", 
         "url": "http:\/\/localhost:1313\/"
+    },
+    
+    "http:\/\/localhost:1313\/posts\/microsoft-intune-on-ubuntu\/": {
+        "title": "Microsoft Intune on Ubuntu 24.04 LTS",
+        "tags": [],
+        "content": "Microsoft Intune on Ubuntu 24.04 LTS As we can see in the official installation guide , as of today 25/11/2024, the Microsoft Intune app is not available for Ubuntu 24.04 (noble).\nWe can verify this by searching for intune-platform in the package list of microsoft repository for Ubuntu 22.04 and 24.04:\njammy: https://packages.microsoft.com/ubuntu/22.04/prod/dists/jammy/main/binary-amd64/Packages noble: https://packages.microsoft.com/ubuntu/24.04/prod/dists/noble/main/binary-amd64/Packages As of today, you will find it only in the first one.\nFollow the official installation guide for Ubuntu 22.04, then come back here.\nHey! Nice to see you again :)\nInstall intune-portal # ignore recommendations, i.e. microsoft edge sudo apt install intune-portal --no-install-recommends This will fail due to two dependencies that are not present on noble:\nlibjavascriptcoregtk-4.0 libwebkit2gtk-4.0 On noble only the updated versions are present:\nlibjavascriptcoregtk-4.1 libwebkit2gtk-4.1 Change the file /etc/apt/sources.list.d/ubuntu.sources by adding the following lines:\n## The following are only required because of intune-portal (not packaged for noble) ## libjavascriptcoregtk-4.0-18 libwebkit2gtk-4.0-37 Types: deb URIs: http://archive.ubuntu.com/ubuntu Suites: jammy jammy-updates Components: main universe restricted multiverse Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg ## Ubuntu security updates. Aside from URIs and Suites, ## this should mirror your choices in the previous section. Types: deb URIs: http://security.ubuntu.com/ubuntu/ Suites: jammy-security Components: main universe restricted multiverse Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg This will add jammy repositories.\nWARNING: mixing repositories from different distributions it is usually not a good idea and must be done carefully. Use jammy repositories only in this case and do not install other packages from it. When you install new packages check carefully what apt will do in advance.\nsudo apt update sudo apt install intune-portal --no-install-recommends Try to start Intune:\nintune-portal The app should start, but this does not mean that it would work correctly. Try to follow this tutorial.\nKeep an eye on systemd journal for error logs:\njournalctl -xe If everything goes well, great! Otherwise go on.\nInstall Java 11 JRE As suggested in this tutorial , we have to install openjdk-11-jre. If this is the case, you should see some relevant errors in systemd journal logs.\nsudo apt install openjdk-11-jre Log out, log in and try to run the app again.\nIf everything goes well, great! Otherwise go on.\ngnome-keyring In systemd journal logs you may read some errors related to a missing default keyring. This is especially likely if, like me, you are not using Gnome as desktop environment (I use KDE).\nAs we can see, intune-portal depends on gnome-keyring.\napt depends intune-portal To manage Gnome keyrings, install seahorse.\nsudo apt install seahorse seahorse Create a password keyring, then right-click it and \u0026ldquo;Set as default\u0026rdquo;. This is the keyring that will be used by Intune.\nAs last step, pray for it to be working and try again to complete the device enrollment .\n", 
+        "url": "http:\/\/localhost:1313\/posts\/microsoft-intune-on-ubuntu\/"
+    },
+    
+    "http:\/\/localhost:1313\/posts\/": {
+        "title": "Posts",
+        "tags": [],
+        "content": "", 
+        "url": "http:\/\/localhost:1313\/posts\/"
+    },
+    
+    "http:\/\/localhost:1313\/categories\/": {
+        "title": "Categories",
+        "tags": [],
+        "content": "", 
+        "url": "http:\/\/localhost:1313\/categories\/"
     },
     
     "http:\/\/localhost:1313\/tags\/": {
