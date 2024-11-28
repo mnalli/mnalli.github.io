@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Michele Nalli&#39;s Blog</title>
-    <link>http://localhost:1313/posts/</link>
+    <link>https://mnalli.github.io/posts/</link>
     <description>Recent content in Posts on Michele Nalli&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 25 Nov 2024 19:38:28 +0100</lastBuildDate>
-    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://mnalli.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Microsoft Intune on Ubuntu 24.04 LTS</title>
-      <link>http://localhost:1313/posts/microsoft-intune-on-ubuntu/</link>
+      <link>https://mnalli.github.io/posts/microsoft-intune-on-ubuntu/</link>
       <pubDate>Mon, 25 Nov 2024 19:38:28 +0100</pubDate>
-      <guid>http://localhost:1313/posts/microsoft-intune-on-ubuntu/</guid>
+      <guid>https://mnalli.github.io/posts/microsoft-intune-on-ubuntu/</guid>
       <description>Microsoft Intune on Ubuntu 24.04 LTS As we can see in the official installation guide , as of today 25/11/2024, the Microsoft Intune app is not available for Ubuntu 24.04 (noble).&#xA;We can verify this by searching for intune-platform in the package list of microsoft repository for Ubuntu 22.04 and 24.04:&#xA;jammy: https://packages.microsoft.com/ubuntu/22.04/prod/dists/jammy/main/binary-amd64/Packages noble: https://packages.microsoft.com/ubuntu/24.04/prod/dists/noble/main/binary-amd64/Packages As of today, you will find it only in the first one.&#xA;Follow the official installation guide for Ubuntu 22.</description>
     </item>
   </channel>

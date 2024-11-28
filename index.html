@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-	<meta name="generator" content="Hugo 0.123.7"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta name="generator" content="Hugo 0.123.7">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -21,7 +21,7 @@
 
     <meta name="description" content="Michele Nalli&#39;s Blog">
 
-    <link rel="alternate" type="application/rss+xml" href="http://localhost:1313/index.xml" title="Michele Nalli's Blog" />
+    <link rel="alternate" type="application/rss+xml" href="https://mnalli.github.io/index.xml" title="Michele Nalli's Blog" />
     
         <title>Michele Nalli&#39;s Blog</title>
     
@@ -63,7 +63,7 @@
 
     
     <form id="search"
-    action='http://localhost:1313/' method="get">
+    action='https://mnalli.github.io/' method="get">
     <label hidden for="search-input">Search site</label>
     <input tabindex="-1" type="text" id="search-input" name="query"
     placeholder="search [i] ...">
@@ -233,39 +233,39 @@
 <script>
 window.store = {
     
-    "http:\/\/localhost:1313\/": {
+    "https:\/\/mnalli.github.io\/": {
         "title": "Michele Nalli\u0027s Blog",
         "tags": [],
         "content": "", 
-        "url": "http:\/\/localhost:1313\/"
+        "url": "https:\/\/mnalli.github.io\/"
     },
     
-    "http:\/\/localhost:1313\/posts\/microsoft-intune-on-ubuntu\/": {
+    "https:\/\/mnalli.github.io\/posts\/microsoft-intune-on-ubuntu\/": {
         "title": "Microsoft Intune on Ubuntu 24.04 LTS",
         "tags": [],
         "content": "Microsoft Intune on Ubuntu 24.04 LTS As we can see in the official installation guide , as of today 25/11/2024, the Microsoft Intune app is not available for Ubuntu 24.04 (noble).\nWe can verify this by searching for intune-platform in the package list of microsoft repository for Ubuntu 22.04 and 24.04:\njammy: https://packages.microsoft.com/ubuntu/22.04/prod/dists/jammy/main/binary-amd64/Packages noble: https://packages.microsoft.com/ubuntu/24.04/prod/dists/noble/main/binary-amd64/Packages As of today, you will find it only in the first one.\nFollow the official installation guide for Ubuntu 22.04, then come back here.\nHey! Nice to see you again :)\nInstall intune-portal # ignore recommendations, i.e. microsoft edge sudo apt install intune-portal --no-install-recommends This will fail due to two dependencies that are not present on noble:\nlibjavascriptcoregtk-4.0 libwebkit2gtk-4.0 On noble only the updated versions are present:\nlibjavascriptcoregtk-4.1 libwebkit2gtk-4.1 Change the file /etc/apt/sources.list.d/ubuntu.sources by adding the following lines:\n## The following are only required because of intune-portal (not packaged for noble) ## libjavascriptcoregtk-4.0-18 libwebkit2gtk-4.0-37 Types: deb URIs: http://archive.ubuntu.com/ubuntu Suites: jammy jammy-updates Components: main universe restricted multiverse Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg ## Ubuntu security updates. Aside from URIs and Suites, ## this should mirror your choices in the previous section. Types: deb URIs: http://security.ubuntu.com/ubuntu/ Suites: jammy-security Components: main universe restricted multiverse Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg This will add jammy repositories.\nWARNING: mixing repositories from different distributions it is usually not a good idea and must be done carefully. Use jammy repositories only in this case and do not install other packages from it. When you install new packages check carefully what apt will do in advance.\nsudo apt update sudo apt install intune-portal --no-install-recommends Try to start Intune:\nintune-portal The app should start, but this does not mean that it would work correctly. Try to follow this tutorial.\nKeep an eye on systemd journal for error logs:\njournalctl -xe If everything goes well, great! Otherwise go on.\nInstall Java 11 JRE As suggested in this tutorial , we have to install openjdk-11-jre. If this is the case, you should see some relevant errors in systemd journal logs.\nsudo apt install openjdk-11-jre Log out, log in and try to run the app again.\nIf everything goes well, great! Otherwise go on.\ngnome-keyring In systemd journal logs you may read some errors related to a missing default keyring. This is especially likely if, like me, you are not using Gnome as desktop environment (I use KDE).\nAs we can see, intune-portal depends on gnome-keyring.\napt depends intune-portal To manage Gnome keyrings, install seahorse.\nsudo apt install seahorse seahorse Create a password keyring, then right-click it and \u0026ldquo;Set as default\u0026rdquo;. This is the keyring that will be used by Intune.\nAs last step, pray for it to be working and try again to complete the device enrollment .\n", 
-        "url": "http:\/\/localhost:1313\/posts\/microsoft-intune-on-ubuntu\/"
+        "url": "https:\/\/mnalli.github.io\/posts\/microsoft-intune-on-ubuntu\/"
     },
     
-    "http:\/\/localhost:1313\/posts\/": {
+    "https:\/\/mnalli.github.io\/posts\/": {
         "title": "Posts",
         "tags": [],
         "content": "", 
-        "url": "http:\/\/localhost:1313\/posts\/"
+        "url": "https:\/\/mnalli.github.io\/posts\/"
     },
     
-    "http:\/\/localhost:1313\/categories\/": {
+    "https:\/\/mnalli.github.io\/categories\/": {
         "title": "Categories",
         "tags": [],
         "content": "", 
-        "url": "http:\/\/localhost:1313\/categories\/"
+        "url": "https:\/\/mnalli.github.io\/categories\/"
     },
     
-    "http:\/\/localhost:1313\/tags\/": {
+    "https:\/\/mnalli.github.io\/tags\/": {
         "title": "Tags",
         "tags": [],
         "content": "", 
-        "url": "http:\/\/localhost:1313\/tags\/"
+        "url": "https:\/\/mnalli.github.io\/tags\/"
     },
     
 }
