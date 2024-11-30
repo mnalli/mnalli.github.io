@@ -51,6 +51,10 @@
         <nav>
           <ul class="menu">
             
+                <li><a tabindex="-1" class="menu-link" href="/"><u>H</u>ome</a></li>
+            
+                <li><a tabindex="-1" class="menu-link" href="/tags"><u>T</u>ags</a></li>
+            
           </ul>
         </nav>
         
@@ -65,7 +69,7 @@
   <div id="single-meta">
     
     
-        <span class="datesub">Nov 25, 2024</span>
+        <span class="datesub">Nov 25, 2024 &nbsp;&nbsp; m. Nov 28, 2024</span>
       
 
   </div>
@@ -89,8 +93,8 @@
  for Ubuntu 22.04, then come back here.</p>
 <p>Hey! Nice to see you again :)</p>
 <h2 id="install-intune-portal">Install <code>intune-portal</code></h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># ignore recommendations, i.e. microsoft edge</span>
-</span></span><span style="display:flex;"><span>sudo apt install intune-portal --no-install-recommends
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># ignore recommendations, i.e. microsoft edge</span>
+</span></span><span class="line"><span class="cl">sudo apt install intune-portal --no-install-recommends
 </span></span></code></pre></div><p>This will fail due to two dependencies that are not present on <code>noble</code>:</p>
 <ul>
 <li><code>libjavascriptcoregtk-4.0</code></li>
@@ -120,29 +124,29 @@ Components: main universe restricted multiverse
 Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 </code></pre><p>This will add <code>jammy</code> repositories.</p>
 <p><strong>WARNING</strong>: mixing repositories from different distributions it is usually not a good idea and must be done carefully. Use <code>jammy</code> repositories only in this case and do not install other packages from it. When you install new packages check carefully what <code>apt</code> will do in advance.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo apt update
-</span></span><span style="display:flex;"><span>sudo apt install intune-portal --no-install-recommends
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo apt update
+</span></span><span class="line"><span class="cl">sudo apt install intune-portal --no-install-recommends
 </span></span></code></pre></div><p>Try to start Intune:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>intune-portal
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">intune-portal
 </span></span></code></pre></div><p>The app should start, but this does not mean that it would work correctly. Try to follow <a href="https://cloudinfra.net/how-to-enroll-a-linux-device-in-intune/"  target="_blank" rel="noreferrer nofollow">this</a>
  tutorial.</p>
 <p>Keep an eye on <code>systemd</code> journal for error logs:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>journalctl -xe
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">journalctl -xe
 </span></span></code></pre></div><p>If everything goes well, great! Otherwise go on.</p>
 <h2 id="install-java-11-jre">Install Java 11 JRE</h2>
 <p>As suggested in <a href="https://panther.kapsi.fi/posts/2024-09-03_ubuntu_intune"  target="_blank" rel="noreferrer nofollow">this tutorial</a>
 , we have to install <code>openjdk-11-jre</code>. If this is the case, you should see some relevant errors in <code>systemd</code> journal logs.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo apt install openjdk-11-jre
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo apt install openjdk-11-jre
 </span></span></code></pre></div><p>Log out, log in and try to run the app again.</p>
 <p>If everything goes well, great! Otherwise go on.</p>
 <h2 id="gnome-keyring"><code>gnome-keyring</code></h2>
 <p>In <code>systemd</code> journal logs you may read some errors related to a <strong>missing default keyring</strong>. This is especially likely if, like me, you are not using Gnome as desktop environment (I use KDE).</p>
 <p>As we can see, <code>intune-portal</code> depends on <code>gnome-keyring</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>apt depends intune-portal
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt depends intune-portal
 </span></span></code></pre></div><p>To manage Gnome keyrings, install <code>seahorse</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo apt install seahorse
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>seahorse
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo apt install seahorse
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">seahorse
 </span></span></code></pre></div><p>Create a password keyring, then right-click it and &ldquo;Set as default&rdquo;. This is the keyring that will be used by Intune.</p>
 <p>As last step, pray for it to be working and try again to <a href="https://cloudinfra.net/how-to-enroll-a-linux-device-in-intune/"  target="_blank" rel="noreferrer nofollow">complete the device enrollment</a>
 .</p>
@@ -286,9 +290,9 @@ Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 window.store = {
     
     "https:\/\/mnalli.github.io\/": {
-        "title": "Michele\u0027s Piece of Mind",
+        "title": "",
         "tags": [],
-        "content": "", 
+        "content": "Michele\u0026rsquo;s Piece of Mind ", 
         "url": "https:\/\/mnalli.github.io\/"
     },
     
