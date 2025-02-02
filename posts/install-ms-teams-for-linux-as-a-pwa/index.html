@@ -18,10 +18,10 @@
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1b" />
 
-    <meta name="description" content="404 Page not found">
+    <meta name="description" content="Install MS Teams for Linux as a PWA">
 
     
-        <title>404 Page not found | Michele&#39;s Piece of Mind</title>
+        <title>Install MS Teams for Linux as a PWA | Michele&#39;s Piece of Mind</title>
     
 
     
@@ -60,7 +60,64 @@
         
 
 
-404 NOT FOUND
+
+
+<div id="single-header">
+  <h1>
+    Install MS Teams for Linux as a PWA
+  </h1>
+  <div id="single-meta">
+    
+    
+        <span class="datesub">Feb 2, 2025 &nbsp;&nbsp; m. Feb 2, 2025</span>
+      
+
+  </div>
+</div>
+
+
+
+
+
+<main><p>On my work computer (Ubuntu 24.04) I had <a href="https://flathub.org/apps/com.github.IsmaelMartinez.teams_for_linux"  target="_blank" rel="noreferrer nofollow">Microsoft Teams installed using flatpak</a>
+, which is a wrapper around the webapp executed in chromium. As I have two accounts (one for my company and one for my client), I would like to be able to have both accounts open at the same time. I solved this issue by running a second instance of the webapp directly in chromium (not my main browser), in app mode (using the <code>--app</code> switch).</p>
+<p>The other day, I realized there is a much cleaner and much more consistent way of doing this, installing it as a <strong>Progressive Web Applications</strong> (PWAs) with chromium.</p>
+<h2 id="pwas">PWAs</h2>
+<p>PWAs are web apps that provide a native feel, providing features such as offline access and push notifications.
+PWAs use standard web technologies (HTML, CSS and JavaScript).</p>
+<h2 id="microsoft-teams-on-chromium">Microsoft Teams on chromium</h2>
+<p>Go to <a href="https://teams.microsoft.com/v2/"  target="_blank" rel="noreferrer nofollow">Microsoft Teams Web</a>
+ and login. Clicking on the three dots in the top-right corner you should see a drop down menu, as in the picture.</p>
+<p><p class="imgp">
+  <img loading="lazy" src="/ms-teams-pwa-install.png" alt="Dropdown Menu"  />
+</p>
+</p>
+<p>Click on &ldquo;Install Microsoft Teams&rdquo;.</p>
+<p>Now, you will see that a desktop entry is created under <code>~/.local/share/applications</code>. This effectively means that you will be able to search for &ldquo;Microsoft Teams&rdquo; in the application menu. If you open the desktop entry file using a text editor, you will see that the entry is nothing more than chromium wrapping a PWA.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="c1">#!/usr/bin/env xdg-open</span>
+</span></span><span class="line"><span class="cl"><span class="k">[Desktop Entry]</span>
+</span></span><span class="line"><span class="cl"><span class="na">Version</span><span class="o">=</span><span class="s">1.0</span>
+</span></span><span class="line"><span class="cl"><span class="na">Terminal</span><span class="o">=</span><span class="s">false</span>
+</span></span><span class="line"><span class="cl"><span class="na">Type</span><span class="o">=</span><span class="s">Application</span>
+</span></span><span class="line"><span class="cl"><span class="na">Name</span><span class="o">=</span><span class="s">Microsoft Teams</span>
+</span></span><span class="line"><span class="cl"><span class="na">Exec</span><span class="o">=</span><span class="s">/snap/bin/chromium --profile-directory=Default --app-id=cifhbcnohmdccbgoicgdjpfamggdegmo</span>
+</span></span><span class="line"><span class="cl"><span class="na">Icon</span><span class="o">=</span><span class="s">chrome-cifhbcnohmdccbgoicgdjpfamggdegmo-Default</span>
+</span></span><span class="line"><span class="cl"><span class="na">StartupWMClass</span><span class="o">=</span><span class="s">crx_cifhbcnohmdccbgoicgdjpfamggdegmo</span>
+</span></span></code></pre></div><h2 id="installing-a-second-instance">Installing a second instance</h2>
+<p>To run two instances with different profiles, it is necessary to use two different browser profile, otherwise it won&rsquo;t work.</p>
+<p>After having switched to another profile (create one if you need to), do the same process over again, installing another PWA. After this you would have two applications called &ldquo;Microsoft Teams&rdquo;. Opening the desktop entry with a text editor, you can simply modify their titles, so that you will be able to distinguish them.</p>
+<h2 id="uninstalling">Uninstalling</h2>
+<p>If you wish to uninstall it, you can do so by launching the app and click on the three dots in the top-right corner.</p>
+<p><p class="imgp">
+  <img loading="lazy" src="/ms-teams-pwa-uninstall.png" alt="Dropdown Menu"  />
+</p>
+</p>
+<h2 id="wrapping-up">Wrapping up</h2>
+<p>Adopting this solution, I fixed a couple of issues that I had with my flatpak package, such as problems when sharing the screen and inconsistent notifications. This way it is all handled consistently through chromium.</p>
+</main>
+
+
+
 
 <br>
 

@@ -8,8 +8,14 @@
     <language>en-us</language>
     <managingEditor>michelenalli96@gmail.com (Michele Nalli)</managingEditor>
     <webMaster>michelenalli96@gmail.com (Michele Nalli)</webMaster>
-    <lastBuildDate>Thu, 28 Nov 2024 13:18:20 +0100</lastBuildDate>
     <atom:link href="https://mnalli.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Install MS Teams for Linux as a PWA</title>
+      <link>https://mnalli.github.io/posts/install-ms-teams-for-linux-as-a-pwa/</link>
+      <pubDate>Sun, 02 Feb 2025 20:54:30 +0100</pubDate><author>michelenalli96@gmail.com (Michele Nalli)</author>
+      <guid>https://mnalli.github.io/posts/install-ms-teams-for-linux-as-a-pwa/</guid>
+      <description>On my work computer (Ubuntu 24.04) I had Microsoft Teams installed using flatpak , which is a wrapper around the webapp executed in chromium. As I have two accounts (one for my company and one for my client), I would like to be able to have both accounts open at the same time. I solved this issue by running a second instance of the webapp directly in chromium (not my main browser), in app mode (using the --app switch).</description>
+    </item>
     <item>
       <title>Microsoft Intune on Ubuntu 24.04 LTS</title>
       <link>https://mnalli.github.io/posts/microsoft-intune-on-ubuntu/</link>
