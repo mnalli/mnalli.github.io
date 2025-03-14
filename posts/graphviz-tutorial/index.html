@@ -18,11 +18,10 @@
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1b" />
 
-    <meta name="description" content="Tags">
+    <meta name="description" content="Automatic graph generation with Graphviz">
 
-    <link rel="alternate" type="application/rss+xml" href="https://mnalli.github.io/tags/index.xml" title="Michele's Piece of Mind" />
     
-        <title>Tags | Michele&#39;s Piece of Mind</title>
+        <title>Automatic graph generation with Graphviz | Michele&#39;s Piece of Mind</title>
     
 
     
@@ -61,11 +60,143 @@
         
 
 
-<h1>Tags</h1>
 
-<ul class="terms">
-  
+
+<div id="single-header">
+  <h1>
+    Automatic graph generation with Graphviz
+  </h1>
+  <div id="single-meta">
+    
+    
+        <span class="datesub">Mar 13, 2025 &nbsp;&nbsp; m. Mar 14, 2025</span>
+      
+
+  </div>
+</div>
+
+
+
+
+
+<main><p>Visualizing data is a fantastic way to gain insights into a specific domain. In
+some contexts, it would be beneficial to be able to <strong>generate a graph programmatically</strong>.</p>
+<h2 id="graphviz">Graphviz</h2>
+<p><a href="https://graphviz.org/"  target="_blank" rel="noreferrer nofollow">Graphviz</a>
+ is a graph visualization tool (I bet you wouldn&rsquo;t have guessed that, would you?).
+It reads a textual description of a graph written in its Domain Specific Language, called
+<a href="https://graphviz.org/doc/info/lang.html"  target="_blank" rel="noreferrer nofollow">DOT</a>
+, and is capable of producing various output formats, including images.</p>
+<p>The fact that it reads from a simple text file (or from <code>stdin</code>) opens the door
+for all sorts of integrations and automations.</p>
+<p>Some relevant use cases can be found in the description of the debian <code>graphviz</code> package.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">Automatic generation of graph drawings has important applications in key
+</span></span><span class="line"><span class="cl">technologies such as database design, software engineering, VLSI and
+</span></span><span class="line"><span class="cl">network design and visual interfaces in other domains. Situations where
+</span></span><span class="line"><span class="cl">these tools might be particularly useful include:
+</span></span><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">* you would like to restructure a program and first need to understand
+</span></span><span class="line"><span class="cl">the relationships between its types, procedures, and source files
+</span></span><span class="line"><span class="cl">* you need to find the bottlenecks in an Internet backbone - not only
+</span></span><span class="line"><span class="cl">individual links, but their relationships
+</span></span><span class="line"><span class="cl">* you&#39;re debugging a protocol or microarchitecture represented as a
+</span></span><span class="line"><span class="cl">finite state machine and need to figure out how a certain
+</span></span><span class="line"><span class="cl">error state arises
+</span></span><span class="line"><span class="cl">* you would like to browse a database schema, knowledge base, or
+</span></span><span class="line"><span class="cl">distributed program represented graphically
+</span></span><span class="line"><span class="cl">* you would like to see an overview of a collection of linked documents
+</span></span><span class="line"><span class="cl">* you would like to discover patterns and communities of interest in a
+</span></span><span class="line"><span class="cl">database of telephone calls or e-mail messages
+</span></span></code></pre></div><p>You can install Graphviz on Debian-based distributions with <code>apt install graphviz</code>.</p>
+<h3 id="dot">DOT</h3>
+<p>At its core, the DOT format allows you to specify node and edge definitions. Let&rsquo;s see a simple example.</p>
+<pre tabindex="0"><code class="language-dot" data-lang="dot">graph {
+    &#34;node-a-id&#34; [label=&#34;Node A Label&#34;]      // Node A properties
+    &#34;node-a-id&#34; -- &#34;node-b-id&#34;              // Node A - Node B edge
+}
+</code></pre><p>Node B does not have any properties specified, but it is mentioned as the end of an edge.</p>
+<p>Using the <code>dotty</code> interactive graph editor (part of <code>graphviz</code>) we can visualize
+the results and experiment with them. If called as <code>dotty -</code>, it reads from <code>stdin</code>
+for a DOT specification.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;graph {
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;node-a-id&#34; [label=&#34;Node A Label&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;node-a-id&#34; -- &#34;node-b-id&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">}&#39;</span> <span class="p">|</span> dotty -
+</span></span></code></pre></div><p><p class="imgp">
+  <img loading="lazy" src="/graphviz-tutorial/dotty.png" alt="dotty"  />
+</p>
+</p>
+<p>As we can see, Node B is displayed using its ID, as it does not have a label.</p>
+<p>The output may be a bit rough, but <code>dotty</code> is a powerful tool for experimenting with Graphviz.
+We can generate a better-looking graph using <code>dot</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;graph {
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;node-a-id&#34; [label=&#34;Node A Label&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;node-a-id&#34; -- &#34;node-b-id&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">}&#39;</span> <span class="p">|</span> dot -Tpng -o graph.png
+</span></span></code></pre></div><p><p class="imgp">
+  <img loading="lazy" src="/graphviz-tutorial/graph.png" alt="graph.png"  />
+</p>
+</p>
+<h2 id="example">Example</h2>
+<p>Let&rsquo;s see a simple example: we want to visualize a directory subtree to get an
+idea of its content. Let&rsquo;s take into account <code>/etc/apt</code> directory (and let&rsquo;s
+pretend that the program <code>tree</code> does not exists).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="o">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;graph {&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;rankdir=RL&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    find /etc/apt -printf <span class="s1">&#39;%p\t%h\t%f\n&#39;</span> <span class="p">|</span> awk -F <span class="s1">&#39;\t&#39;</span> <span class="s1">&#39;{
+</span></span></span><span class="line"><span class="cl"><span class="s1">        printf &#34;\&#34;%s\&#34; [label=\&#34;%s\&#34;]\n&#34;, $1, $3;
+</span></span></span><span class="line"><span class="cl"><span class="s1">        printf &#34;\&#34;%s\&#34; -- \&#34;%s\&#34;\n&#34;, $1, $2;
+</span></span></span><span class="line"><span class="cl"><span class="s1">    }&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;}&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">)</span> <span class="p">|</span> dot -Tpng -o graph.png
+</span></span></code></pre></div><p>Here&rsquo;s the result on my system:</p>
+<p><p class="imgp">
+  <img loading="lazy" src="/graphviz-tutorial/apt-graph.png" alt="&lt;code&gt;/etc/apt&lt;/code&gt; directory graph"  />
+</p>
+</p>
+<p>Let&rsquo;s analyze each command one by one:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;graph {&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;rankdir=RL&#34;</span>
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;}&#34;</span>
+</span></span></code></pre></div><p>These istructions print the configuration for opening and closing the graph object
+and setting the proper direction of graph layout, so that files (leafs) are on the right.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find /etc/apt -printf <span class="s1">&#39;%p\t%h\t%f\n&#39;</span>
+</span></span></code></pre></div><p><code>find</code> scans the directory subtree of <code>/etc/apt</code> and prints for each file:</p>
+<ul>
+<li>The full path</li>
+<li>The base directory path</li>
+<li>The file name</li>
 </ul>
+<p>These are separated using a tab character (<code>\t</code>).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">awk -F <span class="s1">&#39;\t&#39;</span> <span class="s1">&#39;{
+</span></span></span><span class="line"><span class="cl"><span class="s1">    printf &#34;\&#34;%s\&#34; [label=\&#34;%s\&#34;]\n&#34;, $1, $3;
+</span></span></span><span class="line"><span class="cl"><span class="s1">    printf &#34;\&#34;%s\&#34; -- \&#34;%s\&#34;\n&#34;, $1, $2;
+</span></span></span><span class="line"><span class="cl"><span class="s1">}&#39;</span>
+</span></span></code></pre></div><p>We use full paths as node IDs and the file name as labels.
+The edge links a file (or directory) with its parent directory.</p>
+<p><code>awk</code> is used to parse the output of find. It reads from <code>stdin</code> and for each line
+it prints two lines:</p>
+<ul>
+<li>A node definition:  <code>&quot;&lt;full-path&gt;&quot; [label=&quot;&lt;file name&gt;&quot;]</code></li>
+<li>An edge definition: <code>&quot;&lt;full-path&gt;&quot; -- &quot;&lt;base-directory-path&gt;&quot;</code></li>
+</ul>
+<p>We use full paths as node IDs and file name as labels. The edge links a file
+(or directory) with its parent directory.</p>
+<h2 id="conclusions">Conclusions</h2>
+<p>We just saw a very simple example of what Graphviz is capable of, but it can be used to generate
+all kinds of arbitrarily complex graphs, as it supports a wide range of configuration options.
+Its versatility allows users to create detailed visual representations tailored to specific
+needs, making it an invaluable tool for various applications.</p>
+<p>Think about it next time you need a graph representation of something.</p>
+</main>
+
+
+
 
 <br>
 

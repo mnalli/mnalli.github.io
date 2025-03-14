@@ -8,20 +8,27 @@
     <language>en-us</language>
     <managingEditor>michelenalli96@gmail.com (Michele Nalli)</managingEditor>
     <webMaster>michelenalli96@gmail.com (Michele Nalli)</webMaster>
-    <lastBuildDate>Sun, 02 Feb 2025 21:54:25 +0100</lastBuildDate>
+    <lastBuildDate>Fri, 14 Mar 2025 15:29:46 +0100</lastBuildDate>
     <atom:link href="https://mnalli.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Automatic graph generation with Graphviz</title>
+      <link>https://mnalli.github.io/posts/graphviz-tutorial/</link>
+      <pubDate>Thu, 13 Mar 2025 23:33:26 +0100</pubDate><author>michelenalli96@gmail.com (Michele Nalli)</author>
+      <guid>https://mnalli.github.io/posts/graphviz-tutorial/</guid>
+      <description>Visualizing data is a fantastic way to gain insights into a specific domain. In some contexts, it would be beneficial to be able to generate a graph programmatically.&#xA;Graphviz Graphviz is a graph visualization tool (I bet you wouldn&amp;rsquo;t have guessed that, would you?). It reads a textual description of a graph written in its Domain Specific Language, called DOT , and is capable of producing various output formats, including images.</description>
+    </item>
+    <item>
       <title>Install MS Teams for Linux as a PWA</title>
-      <link>https://mnalli.github.io/posts/install-ms-teams-for-linux-as-a-pwa/</link>
+      <link>https://mnalli.github.io/posts/ms-teams-chromium-pwa/</link>
       <pubDate>Sun, 02 Feb 2025 20:54:30 +0100</pubDate><author>michelenalli96@gmail.com (Michele Nalli)</author>
-      <guid>https://mnalli.github.io/posts/install-ms-teams-for-linux-as-a-pwa/</guid>
+      <guid>https://mnalli.github.io/posts/ms-teams-chromium-pwa/</guid>
       <description>On my work computer (Ubuntu 24.04) I had Microsoft Teams installed using flatpak , which is a wrapper around the webapp executed in chromium. As I have two accounts (one for my company and one for my client), I would like to be able to have both accounts open at the same time. I solved this issue by running a second instance of the webapp directly in chromium (not my main browser), in app mode (using the --app switch).</description>
     </item>
     <item>
       <title>Microsoft Intune on Ubuntu 24.04 LTS</title>
-      <link>https://mnalli.github.io/posts/microsoft-intune-on-ubuntu/</link>
+      <link>https://mnalli.github.io/posts/ms-intune-ubuntu/</link>
       <pubDate>Mon, 25 Nov 2024 19:38:28 +0100</pubDate><author>michelenalli96@gmail.com (Michele Nalli)</author>
-      <guid>https://mnalli.github.io/posts/microsoft-intune-on-ubuntu/</guid>
+      <guid>https://mnalli.github.io/posts/ms-intune-ubuntu/</guid>
       <description>As we can see in the official installation guide , as of today 25/11/2024, the Microsoft Intune app is not available for Ubuntu 24.04 (noble).&#xA;We can verify this by searching for intune-platform in the package list of microsoft repository for Ubuntu 22.04 and 24.04:&#xA;jammy: https://packages.microsoft.com/ubuntu/22.04/prod/dists/jammy/main/binary-amd64/Packages noble: https://packages.microsoft.com/ubuntu/24.04/prod/dists/noble/main/binary-amd64/Packages As of today, you will find it only in the first one.&#xA;Follow the official installation guide for Ubuntu 22.04, then come back here.</description>
     </item>
   </channel>
