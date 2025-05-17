@@ -67,7 +67,8 @@
 
 
     
-    <form id="search"
+    
+        <form id="search"
     action='https://mnalli.github.io/' method="get">
     <label hidden for="search-input">Search site</label>
     <input tabindex="-1" type="text" id="search-input" name="query"
@@ -76,7 +77,8 @@
 </form>
 
 
-    <ul id="results"></ul>
+        <ul id="results"></ul>
+    
 
     
         <h2 class="section-title">Posts</h2>
@@ -223,7 +225,7 @@
 
     window.addEventListener(
       "scroll",
-      throttle(scrollCallback, 300),
+      throttle(scrollCallback, 200),
     );
   }
   setTimeout(scrollHandler, 100);
@@ -319,8 +321,11 @@ window.store = {
     
 }
 </script>
-<script defer src="/js/lunr.js"></script>
-<script defer src="/js/search.js"></script>
+
+
+    <script defer src="/js/lunr.js"></script>
+    <script defer src="/js/search.js"></script>
+
 
 </footer>
 
