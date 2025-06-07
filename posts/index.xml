@@ -8,8 +8,15 @@
     <language>en-us</language>
     <managingEditor>michelenalli96@gmail.com (Michele Nalli)</managingEditor>
     <webMaster>michelenalli96@gmail.com (Michele Nalli)</webMaster>
-    <lastBuildDate>Fri, 14 Mar 2025 19:27:14 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 07 Jun 2025 12:50:08 +0200</lastBuildDate>
     <atom:link href="https://mnalli.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Express.js Interactive REPL</title>
+      <link>https://mnalli.github.io/posts/express-interactive-repl/</link>
+      <pubDate>Fri, 06 Jun 2025 09:26:07 +0200</pubDate><author>michelenalli96@gmail.com (Michele Nalli)</author>
+      <guid>https://mnalli.github.io/posts/express-interactive-repl/</guid>
+      <description>Introduction Having an interactive REPL is one of those things that makes experimenting and debugging so much nicer. Django has it built-in, through the django shell command. This is basically the Python REPL with Django context preloaded. Express does not have anything like that built-in, but it is easy to implement it.&#xA;All code snippets shown will reference this tutorial project.&#xA;TL;DR # javascript node --interactive --eval &amp;#34;`cat init-context.js`&amp;#34; # typescript ts-node --interactive --eval &amp;#34;`cat init-context.</description>
+    </item>
     <item>
       <title>Automatic graph generation with Graphviz</title>
       <link>https://mnalli.github.io/posts/graphviz-tutorial/</link>
