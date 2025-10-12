@@ -8,8 +8,15 @@
     <language>en-us</language>
     <managingEditor>michelenalli96@gmail.com (Michele Nalli)</managingEditor>
     <webMaster>michelenalli96@gmail.com (Michele Nalli)</webMaster>
-    <lastBuildDate>Sat, 07 Jun 2025 14:48:03 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 12 Oct 2025 18:51:40 +0200</lastBuildDate>
     <atom:link href="https://mnalli.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bash Alias Expansion</title>
+      <link>https://mnalli.github.io/posts/bash-alias-expansion/</link>
+      <pubDate>Sun, 12 Oct 2025 18:51:40 +0200</pubDate><author>michelenalli96@gmail.com (Michele Nalli)</author>
+      <guid>https://mnalli.github.io/posts/bash-alias-expansion/</guid>
+      <description>Recently, I decided to leave the fish shell for a shell that was more suitable for scripting (POSIX-compliant). I used Fish for a long time, attracted by its interactive features, but I eventually got frustrated with its peculiarities when it comes to scripting and system administration.&#xA;So I decided to give Bash a shot (this time for real).&#xA;Fish: abbreviations One of the features that I liked the most about Fish was abbreviations.</description>
+    </item>
     <item>
       <title>Express.js Interactive REPL</title>
       <link>https://mnalli.github.io/posts/express-interactive-repl/</link>
