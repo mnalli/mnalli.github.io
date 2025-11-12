@@ -18,10 +18,10 @@
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1b" />
 
-    <meta name="description" content="Express.js Interactive REPL">
+    <meta name="description" content="Source .env file in Bash">
 
     
-        <title>Express.js Interactive REPL | Michele&#39;s Piece of Mind</title>
+        <title>Source .env file in Bash | Michele&#39;s Piece of Mind</title>
     
 
     
@@ -68,12 +68,12 @@
 
 <div id="single-header">
   <h1>
-    Express.js Interactive REPL
+    Source .env file in Bash
   </h1>
   <div id="single-meta">
     
     
-        <span class="datesub">Jun 6, 2025 &nbsp;&nbsp; m. Nov 6, 2025</span>
+        <span class="datesub">Nov 12, 2025 &nbsp;&nbsp; m. Nov 12, 2025</span>
       
 
   </div>
@@ -83,136 +83,15 @@
 
 
 
-<main><h2 id="introduction">Introduction</h2>
-<p>Having an interactive REPL is one of those things that makes experimenting and debugging so much nicer. Django has it built-in, through the <code>manage.py shell</code> command. This is basically the Python REPL with Django context preloaded. Express does not have anything like that built-in, but it is easy to implement it.</p>
-<p>All code snippets shown will reference <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/Express_Nodejs/Tutorial_local_library_website"  target="_blank" rel="noreferrer nofollow">this</a> tutorial project.</p>
-<h2 id="tldr">TL;DR</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># javascript</span>
-</span></span><span class="line"><span class="cl">node --interactive --eval <span class="s2">&#34;`cat init-context.js`&#34;</span>
+<main><p>It is easy to evaluate a <code>.env</code> file in bash; no real need for the <code>dotenv</code> command:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># export all variables defined</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -o allexport
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># typescript</span>
-</span></span><span class="line"><span class="cl">ts-node --interactive --eval <span class="s2">&#34;`cat init-context.js`&#34;</span>
-</span></span></code></pre></div><h2 id="programmatically">Programmatically</h2>
-<p>The approach I&rsquo;ve seen the most online, for example in <a href="https://apibakery.com/blog/express/node-repl-shell/"  target="_blank" rel="noreferrer nofollow">this</a> article, is to instantiate the REPL programmatically, using the <code>repl</code> module. Following the aforementioned article, we may start up a Javascript REPL using the following script.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env node
-</span></span></span><span class="line"><span class="cl"><span class="ch"></span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">repl</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;repl&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;mongoose&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// app and configuration
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./app.js&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// Mongoose models
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">Author</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./models/author.js&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Book</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./models/book.js&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">BookInstance</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./models/bookinstance.js&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Genre</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./models/genre.js&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">mongoDB</span> <span class="o">=</span> <span class="s2">&#34;mongodb://localhost:27017/local_library&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="kr">await</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">mongoDB</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nx">process</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&#34;Database and Express app initialized.\n&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">r</span> <span class="o">=</span> <span class="nx">repl</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1">// set context
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">r</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">app</span> <span class="o">=</span> <span class="nx">app</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nx">r</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">Author</span> <span class="o">=</span> <span class="nx">Author</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">r</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">Book</span> <span class="o">=</span> <span class="nx">Book</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">r</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">BookInstance</span> <span class="o">=</span> <span class="nx">BookInstance</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">r</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">Genre</span> <span class="o">=</span> <span class="nx">Genre</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nx">r</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&#34;exit&#34;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">  <span class="p">});</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nx">r</span><span class="p">.</span><span class="nx">setupHistory</span><span class="p">(</span><span class="s2">&#34;.shell_history&#34;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{});</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">main</span><span class="p">().</span><span class="k">catch</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">);</span>
-</span></span></code></pre></div><p>It took me some time to understand how to start a Typescript REPL instead. This is possible using the <code>repl</code> and <code>ts-node</code> modules combined, as shown below.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env node
-</span></span></span><span class="line"><span class="cl"><span class="ch"></span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">repl</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;repl&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">tsnode</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;ts-node&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;mongoose&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// app and configuration
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./app.js&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// Mongoose models
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">Author</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./models/author.js&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Book</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./models/book.js&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">BookInstance</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./models/bookinstance.js&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Genre</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./models/genre.js&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">mongoDB</span> <span class="o">=</span> <span class="s2">&#34;mongodb://localhost:27017/local_library&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="kr">await</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">mongoDB</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nx">process</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&#34;Database and Express app initialized.\n&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">tsrepl</span> <span class="o">=</span> <span class="nx">tsnode</span><span class="p">.</span><span class="nx">createRepl</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">service</span> <span class="o">=</span> <span class="nx">tsnode</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span> <span class="p">...</span><span class="nx">tsrepl</span><span class="p">.</span><span class="nx">evalAwarePartialHost</span> <span class="p">});</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">tsrepl</span><span class="p">.</span><span class="nx">setService</span><span class="p">(</span><span class="nx">service</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">r</span> <span class="o">=</span> <span class="nx">repl</span><span class="p">.</span><span class="nx">start</span><span class="p">({</span> <span class="nb">eval</span><span class="o">:</span> <span class="nx">tsrepl</span><span class="p">.</span><span class="nx">nodeEval</span> <span class="p">});</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1">// set context
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">r</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">app</span> <span class="o">=</span> <span class="nx">app</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nx">r</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">Author</span> <span class="o">=</span> <span class="nx">Author</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">r</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">Book</span> <span class="o">=</span> <span class="nx">Book</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">r</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">BookInstance</span> <span class="o">=</span> <span class="nx">BookInstance</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">r</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">Genre</span> <span class="o">=</span> <span class="nx">Genre</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nx">r</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&#34;exit&#34;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">  <span class="p">});</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nx">r</span><span class="p">.</span><span class="nx">setupHistory</span><span class="p">(</span><span class="s2">&#34;.shell_history&#34;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{});</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">main</span><span class="p">().</span><span class="k">catch</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">);</span>
-</span></span></code></pre></div><h2 id="leveraging-the-command-line">Leveraging the command line</h2>
-<p>While fidgeting with this last script I realized there is a much simpler way that leverages the standard REPL executables: <code>node</code> and <code>ts-node</code>.</p>
-<p>This approach mocks the <code>-i</code> option of the <code>python</code> REPL. When this option is given, the REPL will execute the script (or the command if <code>-c</code> is used) and then enter interactive mode.</p>
-<p><code>node</code> and <code>ts-node</code> do not allow this kind of behavior, so if we try to do something like <code>node -i init-context.js</code> the REPL will just hang. What we can do is to evaluate the content of the file and enter interactive mode, as follows.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># javascript</span>
-</span></span><span class="line"><span class="cl">node -i -e <span class="s2">&#34;`cat init-context.js`&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># typescript</span>
-</span></span><span class="line"><span class="cl">ts-node -i -e <span class="s2">&#34;`cat init-context.js`&#34;</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// init-context.js
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Initializing db and express app...&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;mongoose&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// app and configuration
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./app.js&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// Mongoose models
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">Author</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./models/author.js&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Book</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./models/book.js&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">BookInstance</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./models/bookinstance.js&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Genre</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./models/genre.js&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">mongoose</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="s2">&#34;mongodb://localhost:27017/local_library&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">);</span>
-</span></span></code></pre></div><p>We can define helper scripts, so that we can launch a shell with <code>npm run shell</code>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="c1">// package.json
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="s2">&#34;scripts&#34;</span><span class="err">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;shell&#34;</span><span class="p">:</span> <span class="s2">&#34;node -i -e \&#34;`cat init-context.js`\&#34;&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;ts-shell&#34;</span><span class="p">:</span> <span class="s2">&#34;npx ts-node -i -e \&#34;`cat init-context.js`\&#34;&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="err">,</span>
-</span></span></code></pre></div><h2 id="conclusions">Conclusions</h2>
-<p>This works nicely and it is not bound in any way to express. It is rather a way of initializing your REPL context.</p>
+</span></span><span class="line"><span class="cl"><span class="c1"># evaluate content in current shell</span>
+</span></span><span class="line"><span class="cl">. .env
+</span></span></code></pre></div><ul>
+<li><code>.</code> is the same of <code>source</code></li>
+</ul>
 </main>
 
 
