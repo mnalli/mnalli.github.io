@@ -84,7 +84,7 @@
 
 
 <main><p>It is easy to evaluate a <code>.env</code> file in bash; no real need for the <code>dotenv</code> command:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># export all variables defined</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># enable automatic export of variables</span>
 </span></span><span class="line"><span class="cl"><span class="nb">set</span> -o allexport
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># evaluate content in current shell</span>
@@ -268,7 +268,7 @@ window.store = {
     "https:\/\/mnalli.github.io\/posts\/bash-source-dotenv\/": {
         "title": "Source .env file in Bash",
         "tags": [],
-        "content": "It is easy to evaluate a .env file in bash; no real need for the dotenv command:\n# export all variables defined set -o allexport # evaluate content in current shell . .env . is the same of source ", 
+        "content": "It is easy to evaluate a .env file in bash; no real need for the dotenv command:\n# enable automatic export of variables set -o allexport # evaluate content in current shell . .env . is the same of source ", 
         "url": "https:\/\/mnalli.github.io\/posts\/bash-source-dotenv\/"
     },
     
