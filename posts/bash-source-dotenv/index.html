@@ -85,10 +85,13 @@
 
 <main><p>It is easy to evaluate a <code>.env</code> file in bash; no real need for the <code>dotenv</code> command:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># enable automatic export of variables</span>
-</span></span><span class="line"><span class="cl"><span class="nb">set</span> -o allexport
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -a    <span class="c1"># equivalent to: set -o allexport</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># evaluate content in current shell</span>
 </span></span><span class="line"><span class="cl">. .env
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># disable automatic export</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> +a
 </span></span></code></pre></div><ul>
 <li><code>.</code> is the same of <code>source</code></li>
 </ul>
@@ -96,22 +99,6 @@
 
 
 
-<script src="https://giscus.app/client.js"
-    data-repo="mnalli/mnalli.github.io"
-    data-repo-id="R_kgDONO8wlA"
-    data-category="Announcements"
-    data-category-id="DIC_kwDONO8wlM4CqOHL"
-    data-mapping="pathname"
-    data-strict="0"
-    data-reactions-enabled="1"
-    data-emit-metadata="0"
-    data-input-position="top"
-    data-theme="preferred_color_scheme"
-    data-lang="en"
-    data-loading="lazy"
-    crossorigin="anonymous"
-    async>
-</script>
 
 
 <br>
@@ -258,6 +245,13 @@
 <script>
 window.store = {
     
+    "https:\/\/mnalli.github.io\/cv\/": {
+        "title": "Curriculum Vitae",
+        "tags": [],
+        "content": " Michele Nalli Simplicity is often the answer to many questions. For each complexity you add, ensure that there is a good reason behind it.\nInfo \u0026amp; Contacts Nationality: Italian Email LinkedIn Blog Github Education MSc in Computer Science (cum laude) University of Bologna [ 2019 – 2022 ] Double Degree Programme: University of Bielefeld - MSc in Intelligent Systems Thesis: Panson: An interactive sonification framework for real-time applications BSc in Computer Science University of Bologna [ 2015 – 2018 ] Thesis: Libvdeplug agno: Ethernet encryption su reti virtuali Work experience Sense Reply [ 2024 - Present ] Software Engineer Prometeia [ 2022 – 2024 ] Software Engineer Conferences The 28th International Conference on Auditory Display (ICAD 2023) My master\u0026rsquo;s thesis work continued with the production of a scientific publication in collaboration with my two supervisors from the University of Bielefeld, that we presented at the ICAD.\nProjects Panson and Facial feature sonification Puripy msm Certifications LPIC-1 Certification, Linux Professional Institute AWS Certified Solutions Architect - Associate, Amazon Web Services (AWS) Languages Language Level Italian Native English C1 Spanish C1 French B1 ", 
+        "url": "https:\/\/mnalli.github.io\/cv\/"
+    },
+    
     "https:\/\/mnalli.github.io\/posts\/": {
         "title": "Posts",
         "tags": [],
@@ -268,7 +262,7 @@ window.store = {
     "https:\/\/mnalli.github.io\/posts\/bash-source-dotenv\/": {
         "title": "Source .env file in Bash",
         "tags": [],
-        "content": "It is easy to evaluate a .env file in bash; no real need for the dotenv command:\n# enable automatic export of variables set -o allexport # evaluate content in current shell . .env . is the same of source ", 
+        "content": "It is easy to evaluate a .env file in bash; no real need for the dotenv command:\n# enable automatic export of variables set -a # equivalent to: set -o allexport # evaluate content in current shell . .env # disable automatic export set +a . is the same of source ", 
         "url": "https:\/\/mnalli.github.io\/posts\/bash-source-dotenv\/"
     },
     
