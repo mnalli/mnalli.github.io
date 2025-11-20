@@ -18,10 +18,10 @@
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1b" />
 
-    <meta name="description" content="Microsoft Intune on Ubuntu 24.04 LTS">
+    <meta name="description" content="Fish-like Multiline Editing in Bash">
 
     
-        <title>Microsoft Intune on Ubuntu 24.04 LTS | Miki&#39;s Piece of Mind</title>
+        <title>Fish-like Multiline Editing in Bash | Miki&#39;s Piece of Mind</title>
     
 
     
@@ -68,12 +68,12 @@
 
 <div id="single-header">
   <h1>
-    Microsoft Intune on Ubuntu 24.04 LTS
+    Fish-like Multiline Editing in Bash
   </h1>
   <div id="single-meta">
     
     
-        <span class="datesub">Nov 25, 2024</span>
+        <span class="datesub">Nov 19, 2025</span>
       
 
   </div>
@@ -83,70 +83,27 @@
 
 
 
-<main><p>As we can see in the <a href="https://learn.microsoft.com/en-us/mem/intune/user-help/microsoft-intune-app-linux#install-microsoft-intune-app-for-ubuntu-desktop"  target="_blank" rel="noreferrer nofollow">official installation guide</a>, as of today 25/11/2024, the Microsoft Intune app is not available for Ubuntu 24.04 (<code>noble</code>).</p>
-<p>We can verify this by searching for <code>intune-platform</code> in the package list of microsoft repository for Ubuntu 22.04 and 24.04:</p>
-<ul>
-<li><code>jammy</code>: <a href="https://packages.microsoft.com/ubuntu/22.04/prod/dists/jammy/main/binary-amd64/Packages"  target="_blank" rel="noreferrer nofollow">https://packages.microsoft.com/ubuntu/22.04/prod/dists/jammy/main/binary-amd64/Packages</a></li>
-<li><code>noble</code>: <a href="https://packages.microsoft.com/ubuntu/24.04/prod/dists/noble/main/binary-amd64/Packages"  target="_blank" rel="noreferrer nofollow">https://packages.microsoft.com/ubuntu/24.04/prod/dists/noble/main/binary-amd64/Packages</a></li>
-</ul>
-<p>As of today, you will find it only in the first one.</p>
-<p>Follow the <a href="https://learn.microsoft.com/en-us/mem/intune/user-help/microsoft-intune-app-linux#install-microsoft-intune-app-for-ubuntu-desktop"  target="_blank" rel="noreferrer nofollow">official installation guide</a> for Ubuntu 22.04, then come back here.</p>
-<p>Hey! Nice to see you again :)</p>
-<h2 id="install-intune-portal">Install <code>intune-portal</code></h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># ignore recommendations, i.e. microsoft edge</span>
-</span></span><span class="line"><span class="cl">sudo apt install intune-portal --no-install-recommends
-</span></span></code></pre></div><p>This will fail due to two dependencies that are not present on <code>noble</code>:</p>
-<ul>
-<li><code>libjavascriptcoregtk-4.0</code></li>
-<li><code>libwebkit2gtk-4.0</code></li>
-</ul>
-<p>On <code>noble</code> only the updated versions are present:</p>
-<ul>
-<li><code>libjavascriptcoregtk-4.1</code></li>
-<li><code>libwebkit2gtk-4.1</code></li>
-</ul>
-<p>Change the file <code>/etc/apt/sources.list.d/ubuntu.sources</code> by adding the following lines:</p>
-<pre tabindex="0"><code>## The following are only required because of intune-portal (not packaged for noble)
-## libjavascriptcoregtk-4.0-18 libwebkit2gtk-4.0-37
-
-Types: deb
-URIs: http://archive.ubuntu.com/ubuntu
-Suites: jammy jammy-updates
-Components: main universe restricted multiverse
-Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
-
-## Ubuntu security updates. Aside from URIs and Suites,
-## this should mirror your choices in the previous section.
-Types: deb
-URIs: http://security.ubuntu.com/ubuntu/
-Suites: jammy-security
-Components: main universe restricted multiverse
-Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
-</code></pre><p>This will add <code>jammy</code> repositories.</p>
-<p><strong>WARNING</strong>: mixing repositories from different distributions it is usually not a good idea and must be done carefully. Use <code>jammy</code> repositories only in this case and do not install other packages from it. When you install new packages check carefully what <code>apt</code> will do in advance.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo apt update
-</span></span><span class="line"><span class="cl">sudo apt install intune-portal --no-install-recommends
-</span></span></code></pre></div><p>Try to start Intune:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">intune-portal
-</span></span></code></pre></div><p>The app should start, but this does not mean that it would work correctly. Try to follow <a href="https://cloudinfra.net/how-to-enroll-a-linux-device-in-intune/"  target="_blank" rel="noreferrer nofollow">this</a> tutorial.</p>
-<p>Keep an eye on <code>systemd</code> journal for error logs:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">journalctl -xe
-</span></span></code></pre></div><p>If everything goes well, great! Otherwise go on.</p>
-<h2 id="install-java-11-jre">Install Java 11 JRE</h2>
-<p>As suggested in <a href="https://panther.kapsi.fi/posts/2024-09-03_ubuntu_intune"  target="_blank" rel="noreferrer nofollow">this tutorial</a>, we have to install <code>openjdk-11-jre</code>. If this is the case, you should see some relevant errors in <code>systemd</code> journal logs.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo apt install openjdk-11-jre
-</span></span></code></pre></div><p>Log out, log in and try to run the app again.</p>
-<p>If everything goes well, great! Otherwise go on.</p>
-<h2 id="gnome-keyring"><code>gnome-keyring</code></h2>
-<p>In <code>systemd</code> journal logs you may read some errors related to a <strong>missing default keyring</strong>. This is especially likely if, like me, you are not using Gnome as desktop environment (I use KDE).</p>
-<p>As we can see, <code>intune-portal</code> depends on <code>gnome-keyring</code>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt depends intune-portal
-</span></span></code></pre></div><p>To manage Gnome keyrings, install <code>seahorse</code>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo apt install seahorse
+<main><p>A feature that I really liked about Fish was the possibility to edit multiline
+commands on the command line. In the first place, I just made friends with <code>;</code>
+and <code>\</code>, but when I decided to migrate <a href="https://github.com/mnalli/msm"  target="_blank" rel="noreferrer nofollow">msm</a> from
+Fish to the Posix shell, I started to have the need for multiline editing, as
+I wanted to add a description to the snippet. Here&rsquo;s an example of snippet format:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># one-line description (optional)</span>
+</span></span><span class="line"><span class="cl">snippet --definition
+</span></span></code></pre></div><p>I needed a way to write multiline commands in Bash, without awkward workarounds.
+Here is how I did it.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">add_newline<span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">local</span> <span class="nv">region</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">READLINE_LINE</span><span class="p">:</span><span class="nv">0</span><span class="p">:</span><span class="nv">READLINE_POINT</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">local</span> <span class="nv">after</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">READLINE_LINE</span><span class="p">:</span><span class="nv">READLINE_POINT</span><span class="p">:</span><span class="si">${#</span><span class="nv">READLINE_LINE</span><span class="si">}}</span><span class="s2">&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">seahorse
-</span></span></code></pre></div><p>Create a password keyring, then right-click it and &ldquo;Set as default&rdquo;. This is the keyring that will be used by Intune.</p>
-<p>As last step, pray for it to be working and try again to <a href="https://cloudinfra.net/how-to-enroll-a-linux-device-in-intune/"  target="_blank" rel="noreferrer nofollow">complete the device enrollment</a>.</p>
+</span></span><span class="line"><span class="cl">    <span class="nv">READLINE_LINE</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$region</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="nv">$after</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">((</span>READLINE_POINT++<span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">bind</span> -x <span class="s1">&#39;&#34;\e\r&#34;: add_newline&#39;</span>
+</span></span></code></pre></div><p>This command adds a newline under your cursor, without running the command.
+I bound it to Alt-Enter, which is also how this was achieved in Fish.</p>
 </main>
 
 

@@ -93,6 +93,21 @@
   <li>
 
     <div style="display: grid; grid-template-columns: 7em auto">
+      <span class="date">Nov 19, 2025</span>
+      
+      <a href="/posts/bash-multiline-editing/">Fish-like Multiline Editing in Bash</a>
+      
+    </div>
+
+</li>
+
+
+
+  
+
+  <li>
+
+    <div style="display: grid; grid-template-columns: 7em auto">
       <span class="date">Nov 12, 2025</span>
       
       <a href="/posts/bash-source-dotenv/">Source .env file in Bash</a>
@@ -335,11 +350,18 @@
 <script>
 window.store = {
     
-    "https:\/\/mnalli.github.io\/cv\/": {
-        "title": "Curriculum Vitae",
+    "https:\/\/mnalli.github.io\/": {
+        "title": "",
         "tags": [],
-        "content": " Michele Nalli Simplicity is often the answer to many questions. For each complexity you add, ensure that there is a good reason behind it.\nInfo \u0026amp; Contacts Nationality: Italian Email LinkedIn Blog Github Education MSc in Computer Science (cum laude) University of Bologna [ 2019 – 2022 ] Double Degree Programme: University of Bielefeld - MSc in Intelligent Systems Thesis: Panson: An interactive sonification framework for real-time applications BSc in Computer Science University of Bologna [ 2015 – 2018 ] Thesis: Libvdeplug agno: Ethernet encryption su reti virtuali Work experience Sense Reply [ 2024 - Present ] Software Engineer Prometeia [ 2022 – 2024 ] Software Engineer Conferences The 28th International Conference on Auditory Display (ICAD 2023) My master\u0026rsquo;s thesis work continued with the production of a scientific publication in collaboration with my two supervisors from the University of Bielefeld, that we presented at the ICAD.\nProjects Panson and Facial feature sonification Puripy msm Certifications LPIC-1 Certification, Linux Professional Institute AWS Certified Solutions Architect - Associate, Amazon Web Services (AWS) Languages Language Level Italian Native English C1 Spanish C1 French B1 ", 
-        "url": "https:\/\/mnalli.github.io\/cv\/"
+        "content": "Miki\u0026rsquo;s Piece of Mind ", 
+        "url": "https:\/\/mnalli.github.io\/"
+    },
+    
+    "https:\/\/mnalli.github.io\/posts\/bash-multiline-editing\/": {
+        "title": "Fish-like Multiline Editing in Bash",
+        "tags": [],
+        "content": "A feature that I really liked about Fish was the possibility to edit multiline commands on the command line. In the first place, I just made friends with ; and \\, but when I decided to migrate msm from Fish to the Posix shell, I started to have the need for multiline editing, as I wanted to add a description to the snippet. Here\u0026rsquo;s an example of snippet format:\n# one-line description (optional) snippet --definition I needed a way to write multiline commands in Bash, without awkward workarounds. Here is how I did it.\nadd_newline() { local region=\u0026#34;${READLINE_LINE:0:READLINE_POINT}\u0026#34; local after=\u0026#34;${READLINE_LINE:READLINE_POINT:${#READLINE_LINE}}\u0026#34; READLINE_LINE=\u0026#34;$region $after\u0026#34; ((READLINE_POINT++)) } bind -x \u0026#39;\u0026#34;\\e\\r\u0026#34;: add_newline\u0026#39; This command adds a newline under your cursor, without running the command. I bound it to Alt-Enter, which is also how this was achieved in Fish.\n", 
+        "url": "https:\/\/mnalli.github.io\/posts\/bash-multiline-editing\/"
     },
     
     "https:\/\/mnalli.github.io\/posts\/": {
@@ -347,6 +369,13 @@ window.store = {
         "tags": [],
         "content": "", 
         "url": "https:\/\/mnalli.github.io\/posts\/"
+    },
+    
+    "https:\/\/mnalli.github.io\/cv\/": {
+        "title": "Curriculum Vitae",
+        "tags": [],
+        "content": " Michele Nalli Simplicity is often the answer to many questions. For each complexity you add, ensure that there is a good reason behind it.\nInfo \u0026amp; Contacts Nationality: Italian Email LinkedIn Blog Github Summary Education MSc in Computer Science (cum laude) University of Bologna [ 2019 – 2022 ] Double Degree Programme: University of Bielefeld - MSc in Intelligent Systems Thesis: Panson: An interactive sonification framework for real-time applications BSc in Computer Science University of Bologna [ 2015 – 2018 ] Thesis: Libvdeplug agno: Ethernet encryption su reti virtuali Work experience Sense Reply [ 2024 - Present ] Software Engineer Prometeia [ 2022 – 2024 ] Software Engineer Conferences The 28th International Conference on Auditory Display (ICAD 2023) My master\u0026rsquo;s thesis work continued with the production of a scientific publication in collaboration with my two supervisors from the University of Bielefeld, that we presented at the ICAD.\nProjects Panson and Facial feature sonification Puripy msm Certifications LPIC-1 Certification, Linux Professional Institute AWS Certified Solutions Architect - Associate, Amazon Web Services (AWS) Languages Language Level Italian Native English C1 Spanish C1 French B1 ", 
+        "url": "https:\/\/mnalli.github.io\/cv\/"
     },
     
     "https:\/\/mnalli.github.io\/posts\/bash-source-dotenv\/": {
@@ -389,13 +418,6 @@ window.store = {
         "tags": [],
         "content": "As we can see in the official installation guide, as of today 25/11/2024, the Microsoft Intune app is not available for Ubuntu 24.04 (noble).\nWe can verify this by searching for intune-platform in the package list of microsoft repository for Ubuntu 22.04 and 24.04:\njammy: https://packages.microsoft.com/ubuntu/22.04/prod/dists/jammy/main/binary-amd64/Packages noble: https://packages.microsoft.com/ubuntu/24.04/prod/dists/noble/main/binary-amd64/Packages As of today, you will find it only in the first one.\nFollow the official installation guide for Ubuntu 22.04, then come back here.\nHey! Nice to see you again :)\nInstall intune-portal # ignore recommendations, i.e. microsoft edge sudo apt install intune-portal --no-install-recommends This will fail due to two dependencies that are not present on noble:\nlibjavascriptcoregtk-4.0 libwebkit2gtk-4.0 On noble only the updated versions are present:\nlibjavascriptcoregtk-4.1 libwebkit2gtk-4.1 Change the file /etc/apt/sources.list.d/ubuntu.sources by adding the following lines:\n## The following are only required because of intune-portal (not packaged for noble) ## libjavascriptcoregtk-4.0-18 libwebkit2gtk-4.0-37 Types: deb URIs: http://archive.ubuntu.com/ubuntu Suites: jammy jammy-updates Components: main universe restricted multiverse Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg ## Ubuntu security updates. Aside from URIs and Suites, ## this should mirror your choices in the previous section. Types: deb URIs: http://security.ubuntu.com/ubuntu/ Suites: jammy-security Components: main universe restricted multiverse Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg This will add jammy repositories.\nWARNING: mixing repositories from different distributions it is usually not a good idea and must be done carefully. Use jammy repositories only in this case and do not install other packages from it. When you install new packages check carefully what apt will do in advance.\nsudo apt update sudo apt install intune-portal --no-install-recommends Try to start Intune:\nintune-portal The app should start, but this does not mean that it would work correctly. Try to follow this tutorial.\nKeep an eye on systemd journal for error logs:\njournalctl -xe If everything goes well, great! Otherwise go on.\nInstall Java 11 JRE As suggested in this tutorial, we have to install openjdk-11-jre. If this is the case, you should see some relevant errors in systemd journal logs.\nsudo apt install openjdk-11-jre Log out, log in and try to run the app again.\nIf everything goes well, great! Otherwise go on.\ngnome-keyring In systemd journal logs you may read some errors related to a missing default keyring. This is especially likely if, like me, you are not using Gnome as desktop environment (I use KDE).\nAs we can see, intune-portal depends on gnome-keyring.\napt depends intune-portal To manage Gnome keyrings, install seahorse.\nsudo apt install seahorse seahorse Create a password keyring, then right-click it and \u0026ldquo;Set as default\u0026rdquo;. This is the keyring that will be used by Intune.\nAs last step, pray for it to be working and try again to complete the device enrollment.\n", 
         "url": "https:\/\/mnalli.github.io\/posts\/ms-intune-ubuntu\/"
-    },
-    
-    "https:\/\/mnalli.github.io\/": {
-        "title": "",
-        "tags": [],
-        "content": "Miki\u0026rsquo;s Piece of Mind ", 
-        "url": "https:\/\/mnalli.github.io\/"
     },
     
     "https:\/\/mnalli.github.io\/categories\/": {

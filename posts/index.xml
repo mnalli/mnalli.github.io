@@ -8,8 +8,15 @@
     <language>en-us</language>
     <managingEditor>michelenalli96@gmail.com (Michele Nalli)</managingEditor>
     <webMaster>michelenalli96@gmail.com (Michele Nalli)</webMaster>
-    <lastBuildDate>Wed, 12 Nov 2025 18:50:29 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 19 Nov 2025 19:50:22 +0100</lastBuildDate>
     <atom:link href="https://mnalli.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Fish-like Multiline Editing in Bash</title>
+      <link>https://mnalli.github.io/posts/bash-multiline-editing/</link>
+      <pubDate>Wed, 19 Nov 2025 19:50:22 +0100</pubDate><author>michelenalli96@gmail.com (Michele Nalli)</author>
+      <guid>https://mnalli.github.io/posts/bash-multiline-editing/</guid>
+      <description>&lt;p&gt;A feature that I really liked about Fish was the possibility to edit multiline&#xA;commands on the command line. In the first place, I just made friends with &lt;code&gt;;&lt;/code&gt;&#xA;and &lt;code&gt;\&lt;/code&gt;, but when I decided to migrate &lt;a href=&#34;https://github.com/mnalli/msm&#34;  target=&#34;_blank&#34; rel=&#34;noreferrer nofollow&#34;&gt;msm&lt;/a&gt; from&#xA;Fish to the Posix shell, I started to have the need for multiline editing, as&#xA;I wanted to add a description to the snippet. Here&amp;rsquo;s an example of snippet format:&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# one-line description (optional)&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;snippet --definition&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I needed a way to write multiline commands in Bash, without awkward workarounds.&#xA;Here is how I did it.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Source .env file in Bash</title>
       <link>https://mnalli.github.io/posts/bash-source-dotenv/</link>

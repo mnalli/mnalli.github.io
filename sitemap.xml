@@ -2,32 +2,35 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://mnalli.github.io/cv/</loc>
-    <lastmod>2025-11-14T14:13:08+01:00</lastmod>
+    <loc>https://mnalli.github.io/</loc>
+    <lastmod>2025-11-19T19:50:22+01:00</lastmod>
+  </url><url>
+    <loc>https://mnalli.github.io/posts/bash-multiline-editing/</loc>
+    <lastmod>2025-11-19T19:50:22+01:00</lastmod>
   </url><url>
     <loc>https://mnalli.github.io/posts/</loc>
-    <lastmod>2025-11-14T14:12:56+01:00</lastmod>
+    <lastmod>2025-11-19T19:50:22+01:00</lastmod>
+  </url><url>
+    <loc>https://mnalli.github.io/cv/</loc>
+    <lastmod>2025-11-14T14:00:00+01:00</lastmod>
   </url><url>
     <loc>https://mnalli.github.io/posts/bash-source-dotenv/</loc>
-    <lastmod>2025-11-12T18:50:29+01:00</lastmod>
+    <lastmod>2025-11-12T18:40:31+01:00</lastmod>
   </url><url>
     <loc>https://mnalli.github.io/posts/bash-alias-expansion/</loc>
-    <lastmod>2025-11-06T13:40:59+01:00</lastmod>
+    <lastmod>2025-10-12T18:51:40+02:00</lastmod>
   </url><url>
     <loc>https://mnalli.github.io/posts/express-interactive-repl/</loc>
-    <lastmod>2025-11-06T13:40:59+01:00</lastmod>
+    <lastmod>2025-06-06T09:26:07+02:00</lastmod>
   </url><url>
     <loc>https://mnalli.github.io/posts/graphviz-tutorial/</loc>
-    <lastmod>2025-11-06T13:40:59+01:00</lastmod>
+    <lastmod>2025-03-13T23:33:26+01:00</lastmod>
   </url><url>
     <loc>https://mnalli.github.io/posts/ms-teams-chromium-pwa/</loc>
-    <lastmod>2025-11-06T13:40:59+01:00</lastmod>
+    <lastmod>2025-02-02T20:54:30+01:00</lastmod>
   </url><url>
     <loc>https://mnalli.github.io/posts/ms-intune-ubuntu/</loc>
-    <lastmod>2025-11-06T13:40:59+01:00</lastmod>
-  </url><url>
-    <loc>https://mnalli.github.io/</loc>
-    <lastmod>2025-11-12T18:39:37+01:00</lastmod>
+    <lastmod>2024-11-25T19:38:28+01:00</lastmod>
   </url><url>
     <loc>https://mnalli.github.io/categories/</loc>
   </url><url>
